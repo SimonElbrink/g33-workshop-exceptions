@@ -1,5 +1,6 @@
 package se.lexicon.exceptions.workshop;
 
+import java.io.IOException;
 import java.util.List;
 
 import se.lexicon.exceptions.workshop.data_access.NameService;
@@ -28,6 +29,8 @@ public class Main {
 
         Person test = nameService.getNewRandomPerson();
         System.out.println(test);
+
+        nameService.addFemaleFirstName("Susanna");
 
 	}
 

@@ -115,34 +115,52 @@ public class CSVReader_Writer {
     }
 
 
-    public static void saveLastNames(List <String> lastNames){
+    public static void saveLastNames(List<String> lastNames) {
 
-            BufferedWriter writer = Files.newBufferedWriter(Paths.get("lastnames.txt"));
-            for(String toWrite : lastNames){
-                writer.append(toWrite+",");
+        BufferedWriter writer = null;
+        try {
+            writer = Files.newBufferedWriter(Paths.get("lastnames.txt"));
+
+            for (String toWrite : lastNames) {
+                writer.append(toWrite + ",");
             }
             writer.flush();
-      }
 
-    public static void saveFemaleNames(List <String> femaleNames){
-        BufferedWriter writer = Files.newBufferedWriter(Paths.get("firstname_female.txt"));
-            for(String toWrite : femaleNames){
-                writer.append(toWrite+",");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveFemaleNames(List<String> femaleNames) {
+
+
+        BufferedWriter writer = null;
+        try {
+            writer = Files.newBufferedWriter(Paths.get("firstname_female.txt"));
+
+            for (String toWrite : femaleNames) {
+                writer.append(toWrite + ",");
             }
             writer.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
 
+    public static void saveMaleNames(List<String> maleNames) {
 
-    public static void saveMaleNames(List <String> maleNames){
-        BufferedWriter writer = Files.newBufferedWriter(Paths.get("firstname_males.txt"));
-            for(String toWrite : maleNames){
-                writer.append(toWrite+",");
+        try(BufferedWriter writer = Files.newBufferedWriter(Paths.get("firstname_males.txt"))){
+            for (String toWrite : maleNames) {
+                writer.append(toWrite + ",");
             }
             writer.flush();
-
-
+        }catch (IOException exception){
+            exception.printStackTrace();
+        }
     }
 
 
