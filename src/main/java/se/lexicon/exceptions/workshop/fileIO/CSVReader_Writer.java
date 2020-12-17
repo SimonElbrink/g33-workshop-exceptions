@@ -60,16 +60,35 @@ public class CSVReader_Writer {
 
     /**
      * This method getFemaleFirstNames should make use of a try-catch with resources
+     * <p>
+     * AutoCloses the resources!
+     *
      * @return
      */
-    public static List<String> getFemaleFirstNames(){
+    public static List<String> getFemaleFirstNames() {
 
-        List<String> names=null;
+        List<String> names = null;
 
-            BufferedReader reader = Files.newBufferedReader(Paths.get("firstname_female.txt"))
-                names = reader.lines()
-                        .flatMap(line -> Stream.of(line.split(",")))
-                        .collect(Collectors.toList());
+
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get("firstname_female.txt"))) {
+
+            names = reader.lines()
+                    .flatMap(line -> Stream.of(line.split(",")))
+                    .collect(Collectors.toList());
+
+        } catch (FileNotFoundException ex) {
+            System.out.println("OPS! File could not be found!");
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            System.out.println("Ops! Something with the IO went wrong");
+            ex.printStackTrace();
+        } finally {
+            // "Finally" is ALWAYS running at the end of the "try".
+            // If we would like to do anything lets do it here ;) Party?
+            // Anything to rollback?
+
+        }
+
 
         return names;
     }
