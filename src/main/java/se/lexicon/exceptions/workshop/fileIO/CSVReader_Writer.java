@@ -106,11 +106,10 @@ public class CSVReader_Writer {
         List<String> names = null;
         BufferedReader reader = null;
 
-        try{
-                reader = Files.newBufferedReader(Paths.get("lastnames.txt"));
-                names = reader.lines()
-                .flatMap(line -> Stream.of(line.split(",")))
-                .collect(Collectors.toList());
+            reader = Files.newBufferedReader(Paths.get("lastnames.txt"));
+            names = reader.lines()
+                    .flatMap(line -> Stream.of(line.split(",")))
+                    .collect(Collectors.toList());
 
         return names;
     }
