@@ -2,6 +2,7 @@ package se.lexicon.exceptions.workshop.fileIO;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+// COMMA SEPARATED VALUES - CSV
 public class CSVReader_Writer {
 	 /**
      * This method getMaleFirstNames should use a try-catch-finally without resources
@@ -22,13 +24,37 @@ public class CSVReader_Writer {
         List <String> names = null;
 
 
-        	reader = Files.newBufferedReader(Paths.get("firstname_males.txt"));
+        try {
+            reader = Files.newBufferedReader(Paths.get("firstname_males.txt"));
             names = reader.lines()
                     .flatMap(line -> Stream.of(line.split(",")))
                     .collect(Collectors.toList());
 
-         	return names;
+        } catch (FileNotFoundException ex) {
+            System.out.println("OPS! File could not be found!");
+            ex.printStackTrace();
+        } catch (IOException exception) {
+            System.out.println("Ops! Something with the IO went wrong");
+            exception.printStackTrace();
+        } catch (Exception ex) {
+            System.out.println("Ops! Something with the went wrong");
+            ex.printStackTrace();
+        } catch (Throwable ex) {
+            System.out.println("Ops!");
+            ex.printStackTrace();
+        } finally {
+            try {
+
+                reader.close();
+
+            } catch (IOException ex) {
+                System.out.println("Ops! could not close connection!");
+                ex.printStackTrace();
+            }
         }
+
+        return names;
+    }
 
 
 
@@ -67,12 +93,6 @@ public class CSVReader_Writer {
                 .flatMap(line -> Stream.of(line.split(",")))
                 .collect(Collectors.toList());
 
-
-        }finally{
-            if(reader != null){
-                reader.close();
-            }
-        }
         return names;
     }
 

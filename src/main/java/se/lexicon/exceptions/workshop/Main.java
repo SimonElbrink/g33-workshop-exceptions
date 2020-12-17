@@ -13,7 +13,14 @@ public class Main {
 		List <String> maleFirstNames = CSVReader_Writer.getMaleFirstNames();
         List <String> femaleFirstNames = CSVReader_Writer.getFemaleFirstNames();
 
-        List <String> lastNames = CSVReader_Writer.getLastNames();
+
+        List <String> lastNames = null;
+        try {
+            lastNames = CSVReader_Writer.getLastNames();
+        } catch (IOException e) {
+            System.out.println("Ops! something with the IO is wrong!");
+            e.printStackTrace();
+        }
 
 
         NameService nameService = new NameService(maleFirstNames, femaleFirstNames,lastNames);
